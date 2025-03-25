@@ -2,63 +2,80 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>最傻逼的网站</title>
+    <title>你被骗了！</title>
     <style>
         body {
-            background-color: black;
-            color: white;
-            font-size: 24px;
             text-align: center;
-            transition: background-color 0.1s;
+            font-size: 24px;
+            transition: transform 3s;
         }
         button {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
             font-size: 20px;
             padding: 10px;
             border: none;
             background: red;
             color: white;
             cursor: pointer;
+            transition: 0.2s;
+        }
+        input {
+            font-size: 20px;
+            padding: 5px;
         }
     </style>
 </head>
 <body>
-    <h1>你好，智商检测启动中...</h1>
-    <button id="troll-btn">点我一下</button>
-    
+    <h1 id="title">欢迎来到正常网站 😇</h1>
+    <button id="run-btn">点我试试</button>
+    <br><br>
+    <input type="text" id="auto-input" placeholder="请在这里输入..." />
+
     <script>
-        // 让页面背景随机变色
+        // 让按钮疯狂逃跑
+        let btn = document.getElementById("run-btn");
+        btn.addEventListener("mouseover", function() {
+            btn.style.left = Math.random() * window.innerWidth + "px";
+            btn.style.top = Math.random() * window.innerHeight + "px";
+        });
+
+        // 让网页上的文字自己变化
         setInterval(() => {
-            document.body.style.backgroundColor = `rgb(${Math.random()*255}, ${Math.random()*255}, ${Math.random()*255})`;
-        }, 500);
+            document.getElementById("title").innerText = [
+                "你被骗了 😂",
+                "你是不是有点后悔进来了？",
+                "这个网站是个陷阱！",
+                "快关闭，不然你会疯掉！",
+                "其实这里什么也没有...",
+                "点不到按钮？急了吧 😆"
+            ][Math.floor(Math.random() * 6)];
+        }, 2000);
 
-        // 让鼠标乱飘
-        document.addEventListener("mousemove", function(e) {
-            window.scrollBy(Math.random() * 50 - 25, Math.random() * 50 - 25);
-        });
+        // 让输入框自动输入字
+        let text = "你被骗了... ";
+        let index = 0;
+        setInterval(() => {
+            let input = document.getElementById("auto-input");
+            if (index < text.length) {
+                input.value += text[index];
+                index++;
+            } else {
+                input.value = "";
+                index = 0;
+            }
+        }, 300);
 
-        // 让所有文字随机乱码
-        function scrambleText() {
-            document.body.innerHTML = document.body.innerHTML.replace(/[A-Za-z0-9]/g, () => 
-                String.fromCharCode(33 + Math.random() * 94)
-            );
-        }
-        setInterval(scrambleText, 2000);
+        // 让网页慢慢倾斜
+        let angle = 0;
+        setInterval(() => {
+            angle += 1;
+            document.body.style.transform = `rotate(${angle}deg)`;
+        }, 1000);
 
-
-        // 让按钮疯狂移动
-        document.getElementById("troll-btn").addEventListener("mouseover", function() {
-            this.style.left = Math.random() * window.innerWidth + "px";
-            this.style.top = Math.random() * window.innerHeight + "px";
-        });
-
-        // 页面自动滚动，让人完全无法看清
+        // 让页面滚动条自己动
         setInterval(() => {
             window.scrollTo(0, Math.random() * document.body.scrollHeight);
-        }, 1000);
+        }, 1500);
     </script>
 </body>
 </html>
