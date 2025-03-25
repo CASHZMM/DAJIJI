@@ -2,15 +2,16 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>史上最智障的网站</title>
+    <title>史上最傻逼的网站</title>
     <style>
         body {
             text-align: center;
             font-size: 24px;
-            transition: transform 0.1s;
             background: black;
             color: white;
-            overflow: hidden;
+            transform: rotate(0deg);
+            transition: transform 1s linear;
+            overflow-x: hidden;
         }
         button {
             font-size: 20px;
@@ -25,59 +26,78 @@
             font-size: 20px;
             padding: 5px;
         }
+        .content {
+            max-width: 600px;
+            margin: auto;
+        }
     </style>
 </head>
 <body>
-    <h1 id="title">🚨 你上当了 🚨</h1>
-    <button id="run-btn">快点我！！！</button>
+    <h1 id="title">😎 你进入了宇宙最强智障网站 😎</h1>
+    <p id="text">本网站是由AI精心设计，确保所有访客都会怀疑人生！</p>
+    <button id="clone-btn">点击我！</button>
     <br><br>
-    <input type="text" id="troll-input" placeholder="你能打字吗？" />
+    <input type="text" id="crazy-input" placeholder="试试看打字？" />
 
     <script>
-        // 让按钮无限复制 + 逃跑
+        // 让整个页面一直倾斜，越看越晕
+        let angle = 0;
+        setInterval(() => {
+            angle += 5;
+            document.body.style.transform = `rotate(${angle}deg)`;
+        }, 1000);
+
+        // 让按钮无限复制
         function cloneButton() {
-            let btn = document.getElementById("run-btn");
-            for (let i = 0; i < 5; i++) {  // 一次性复制5个
-                let newBtn = btn.cloneNode(true);
+            for (let i = 0; i < 10; i++) {
+                let newBtn = document.createElement("button");
+                newBtn.innerText = "别点我";
                 newBtn.style.left = Math.random() * window.innerWidth + "px";
                 newBtn.style.top = Math.random() * window.innerHeight + "px";
+                newBtn.onclick = cloneButton;
                 document.body.appendChild(newBtn);
-                newBtn.addEventListener("mouseover", cloneButton);
             }
-            btn.remove(); // 原来的按钮消失
         }
-        document.getElementById("run-btn").addEventListener("mouseover", cloneButton);
+        document.getElementById("clone-btn").onclick = cloneButton;
 
-        // 让网页不停旋转
+        // 让所有文字内容自己变化
         setInterval(() => {
-            document.body.style.transform = `rotate(${Math.random() * 360}deg) scale(${Math.random() * 2})`;
-        }, 500);
+            document.getElementById("text").innerText = [
+                "你在看什么？",
+                "网页已经自己在运行了",
+                "你不信？再看5秒试试",
+                "这个网站是活的",
+                "别盯着看，小心它盯回你",
+                "其实你已经在这里呆了30分钟了",
+                "赶快关掉！别再犹豫了"
+            ][Math.floor(Math.random() * 7)];
+        }, 2000);
 
-        // 让鼠标一动，整个页面翻转
-        document.addEventListener("mousemove", function () {
-            document.body.style.transform = `rotateY(${Math.random() * 360}deg)`;
-        });
-
-        // 让字体大小随机变化
+        // 让输入框自己写字
+        let text = "我已经是你的了";
+        let index = 0;
         setInterval(() => {
-            document.body.style.fontSize = `${Math.random() * 50 + 10}px`;
-        }, 500);
-
-        // 让输入框无法正常打字
-        document.getElementById("troll-input").addEventListener("input", function () {
-            this.value = "你被骗了";
-        });
-
-        // 让网页滚动条疯狂滚动
-        setInterval(() => {
-            window.scrollTo(Math.random() * document.body.scrollWidth, Math.random() * document.body.scrollHeight);
-        }, 800);
-
-        // 让弹窗随机出现
-        setInterval(() => {
-            if (Math.random() > 0.5) {
-                alert("你被智商检测器捕捉到，请立即离开此网站！");
+            let input = document.getElementById("crazy-input");
+            if (index < text.length) {
+                input.value += text[index];
+                index++;
+            } else {
+                input.value = "";
+                index = 0;
             }
+        }, 300);
+
+        // 让鼠标指针变成不同表情包
+        const cursors = ["default", "pointer", "crosshair", "grab", "wait", "help", "text"];
+        document.addEventListener("mousemove", function () {
+            document.body.style.cursor = cursors[Math.floor(Math.random() * cursors.length)];
+        });
+
+        // 页面自动增长，让人无法到底
+        setInterval(() => {
+            let newP = document.createElement("p");
+            newP.innerText = "你以为到这里就结束了？哈哈哈哈哈";
+            document.body.appendChild(newP);
         }, 3000);
     </script>
 </body>
